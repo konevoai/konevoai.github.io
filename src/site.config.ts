@@ -26,13 +26,8 @@ export const siteConfig = {
   /** Canonical site URL — used for OG tags and canonical link. Update if the domain ever changes. */
   siteUrl: "https://konevoai.github.io",
 
-  /**
-   * Social share image. A placeholder lives at public/og-image.svg so the
-   * meta tag isn't broken out of the box. Replace it with a real 1200x630
-   * .jpg or .png at public/og-image.jpg and update this path before launch —
-   * most social platforms render OG images poorly (or not at all) as SVG.
-   */
-  ogImage: "/og-image.svg",
+  /** Social share image: 1200x630, the white wordmark centered on the brand background. */
+  ogImage: "/og-image.png",
 
   /**
    * Contact / CTA configuration.

@@ -1,6 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import { siteConfig, getCtaHref } from "../site.config";
 import Icon from "../icons/Icon.astro";
+import konevoWhite from "../assets/konevo_white.png";
 
 const ctaHref = getCtaHref();
 ---
@@ -12,11 +14,15 @@ const ctaHref = getCtaHref();
     class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
     aria-label="Primary"
   >
-    <a
-      href="#top"
-      class="text-lg font-extrabold tracking-tight text-heading"
-    >
-      {siteConfig.companyName}
+    <a href="#top" class="shrink-0">
+      <Image
+        src={konevoWhite}
+        alt="Konevo"
+        width={534}
+        height={90}
+        class="h-[30px] w-auto"
+        loading="eager"
+      />
     </a>
 
     <!-- Desktop links -->

@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#10202E" />
-  <rect x="60" y="60" width="1080" height="510" rx="16" fill="none" stroke="#2A3F52" stroke-width="2" stroke-dasharray="10 8" />
-  <text x="600" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="54" font-weight="800" fill="#FFFFFF">KONEVO</text>
-  <text x="600" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" fill="#F5A623" letter-spacing="4">AI FOR THE PHYSICAL WORLD</text>
-  <text x="600" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#C7D3DE">[OG_IMAGE placeholder — replace public/og-image.svg with a real 1200x630 image]</text>
-</svg>
