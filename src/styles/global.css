@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Design tokens — the entire dark industrial palette lives here. */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --color-background: #10202e;
+  --color-panel: #1b2e3e;
+  --color-panel-border: #2a3f52;
+  --color-accent: #f5a623;
+  --color-accent-hover: #ffb84d;
+  --color-body: #c7d3de;
+  --color-heading: #ffffff;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+  }
+
+  /* Respect users who've asked for less motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Visible keyboard focus ring everywhere — accessibility requirement. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Scroll-reveal: elements start hidden/offset, then animate in via .is-visible
+     toggled by IntersectionObserver in ScrollReveal.astro. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s ease-out,
+      transform 0.7s ease-out;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

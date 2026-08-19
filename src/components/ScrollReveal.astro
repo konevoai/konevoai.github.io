@@ -1,0 +1,20 @@
+---
+// Renders once on the page. Watches every element with class="reveal" and
+// adds "is-visible" when it scrolls into view. No dependency — plain IntersectionObserver.
+---
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+</script>

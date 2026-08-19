@@ -1,0 +1,57 @@
+---
+// Minimal inline icon set (lucide-derived paths, MIT licensed) — no icon
+// library dependency. Add more entries to `paths` as needed.
+interface Props {
+  name:
+    | "shield"
+    | "cpu"
+    | "trending-down"
+    | "clock"
+    | "linkedin"
+    | "mail"
+    | "menu"
+    | "x"
+    | "eye"
+    | "activity"
+    | "wrench"
+    | "move"
+    | "external-link";
+  class?: string;
+}
+
+const { name, class: className = "w-6 h-6" } = Astro.props;
+
+const paths: Record<Props["name"], string> = {
+  shield:
+    "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z",
+  cpu: "M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2M7 7h10v10H7z M10 10h4v4h-4z",
+  "trending-down": "M22 17 13.5 8.5 8.5 13.5 2 7 M16 17h6v-6",
+  clock: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z M12 6v6l4 2",
+  linkedin:
+    "M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5ZM0.5 8h4V23h-4V8ZM8.5 8h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V23h-4v-6.6c0-1.57-.03-3.6-2.2-3.6-2.2 0-2.53 1.72-2.53 3.5V23h-4V8Z",
+  mail: "m3 6 9 7 9-7 M3 6h18v12H3V6Z",
+  menu: "M3 6h18M3 12h18M3 18h18",
+  x: "M18 6 6 18M6 6l12 12",
+  eye: "M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z",
+  activity: "M3 12h4l2-7 4 14 2-7h6",
+  wrench:
+    "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.4-3.4a6 6 0 0 1-7.5 7.5L6.5 20.5a2.1 2.1 0 0 1-3-3L10.6 10.4a6 6 0 0 1 7.5-7.5Z",
+  move: "M12 2v20M2 12h20M5 9l-3 3 3 3M19 9l3 3-3 3M9 5l3-3 3 3M9 19l3 3 3-3",
+  "external-link":
+    "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6 M15 3h6v6 M10 14 21 3",
+};
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  aria-hidden="true"
+>
+  <path d={paths[name]} />
+</svg>

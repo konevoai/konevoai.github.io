@@ -1,0 +1,24 @@
+---
+import { siteConfig, getCtaHref } from "../site.config";
+
+const ctaHref = getCtaHref();
+---
+
+<section id="contact" class="px-6 py-24">
+  <div
+    class="reveal mx-auto max-w-4xl rounded-2xl bg-panel px-8 py-16 text-center"
+  >
+    <h2 class="text-2xl font-extrabold tracking-tight text-heading md:text-4xl">
+      {siteConfig.ctaBand.heading}
+    </h2>
+    <p class="mt-4 text-lg text-body">{siteConfig.ctaBand.subheading}</p>
+    <div class="mt-9">
+      <a
+        href={ctaHref}
+        class="inline-flex items-center rounded-md bg-accent px-6 py-3.5 text-base font-semibold text-background transition-colors hover:bg-accent-hover"
+      >
+        {siteConfig.ctaBand.ctaLabel}
+      </a>
+    </div>
+  </div>
+</section>

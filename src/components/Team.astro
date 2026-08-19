@@ -1,0 +1,71 @@
+---
+import { Image } from "astro:assets";
+import { siteConfig } from "../site.config";
+import Icon from "../icons/Icon.astro";
+import tommiLundell from "../assets/tommi-lundell.jpg";
+import ikramUlHaq from "../assets/ikram-ul-haq.jpg";
+
+// Maps the `photo` key in site.config.ts to its imported (and therefore
+// build-time optimized) image. Add an entry here when adding a new founder photo.
+const photos = {
+  "tommi-lundell": tommiLundell,
+  "ikram-ul-haq": ikramUlHaq,
+};
+---
+
+<section id="team" class="px-6 py-24">
+  <div class="mx-auto max-w-5xl">
+    <h2
+      class="reveal text-center text-3xl font-extrabold tracking-tight text-heading md:text-4xl"
+    >
+      {siteConfig.team.heading}
+    </h2>
+
+    <div class="mt-14 grid gap-8 sm:grid-cols-2">
+      {
+        siteConfig.team.founders.map((founder) => (
+          <div class="reveal rounded-2xl border border-panel-border bg-panel p-8 text-center">
+            <Image
+              src={photos[founder.photo as keyof typeof photos]}
+              alt={`Portrait of ${founder.name}`}
+              width={112}
+              height={112}
+              class="mx-auto h-28 w-28 rounded-full border border-panel-border object-cover"
+            />
+            <h3 class="mt-6 text-xl font-bold text-heading">{founder.name}</h3>
+            <p class="mt-1 text-sm font-medium text-accent">
+              {founder.role}
+              <span class="text-body/40"> · </span>
+              <span class="text-body/70">{founder.focus}</span>
+            </p>
+            <p class="mt-4 text-sm leading-relaxed text-body">{founder.bio}</p>
+            <div class="mt-5 flex items-center justify-center gap-5">
+              <a
+                href={founder.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-body transition-colors hover:text-accent"
+                aria-label={`${founder.name} on LinkedIn`}
+              >
+                <Icon name="linkedin" class="h-4 w-4" />
+                LinkedIn
+              </a>
+              {founder.portfolio && (
+                <a
+                  href={founder.portfolio}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-body transition-colors hover:text-accent"
+                  aria-label={`${founder.name}'s portfolio site`}
+                >
+                  <Icon name="external-link" class="h-4 w-4" />
+                  Portfolio
+                </a>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

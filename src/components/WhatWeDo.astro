@@ -1,0 +1,33 @@
+---
+import { siteConfig } from "../site.config";
+import Icon from "../icons/Icon.astro";
+---
+
+<section id="what-we-do" class="px-6 pt-24 pb-12">
+  <div class="mx-auto max-w-6xl">
+    <h2
+      class="reveal text-center text-3xl font-extrabold tracking-tight text-heading md:text-4xl"
+    >
+      {siteConfig.whatWeDo.heading}
+    </h2>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        siteConfig.whatWeDo.items.map((item) => (
+          <div class="reveal rounded-2xl border border-panel-border bg-panel p-7">
+            <div
+              class="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-accent"
+              aria-hidden="true"
+            >
+              <Icon name={item.icon as any} class="h-6 w-6" />
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-heading">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-body">
+              {item.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
