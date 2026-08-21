@@ -1,33 +1,66 @@
-# Konevo — Marketing Site
+<div align="center">
 
-A static, single-page marketing site built with [Astro](https://astro.build) +
-[Tailwind CSS v4](https://tailwindcss.com). No backend, no database — it
-builds to plain HTML/CSS/JS and can be hosted anywhere that serves static
-files.
+# Konevo
 
-> Konevo — from the Finnish _kone_ ("machine") + _evo_ (from "evolution"):
-> machine evolution. See **Editing content** below to change the name
-> everywhere in one place if it ever changes again.
+**AI-powered robots for the physical world.**
 
-## Project structure
+_kone (machine) + evo (evolution) — machine evolution._
+
+**[konevoai.github.io](https://konevoai.github.io)**
+
+</div>
+
+---
+
+AI has mastered the digital world — writing, designing, predicting. But the
+world that feeds, moves and powers us — factories, ships, plants, pipelines —
+still runs on human hands and hours. Konevo brings modern AI off the screen
+and onto the ground: robots that inspect, monitor, clean, and operate in the
+hazardous, confined, and hard-to-reach places people can't.
+
+First stop: maritime, energy, and process industry across the Helsinki
+region.
+
+**[Book 20 minutes →](https://konevoai.github.io/#contact)**
+
+### Team
+
+- **Tommi Lundell** — Co-Founder, Hardware — [LinkedIn](https://www.linkedin.com/in/tommi-lundell-28b6597)
+- **Ikram Ul Haq** — Co-Founder, AI — [LinkedIn](https://www.linkedin.com/in/ulhaqi12) · [Portfolio](https://ulhaqi12.github.io/)
+
+---
+
+## About this repository
+
+This is the source for Konevo's marketing site: a static, single-page site
+built with [Astro](https://astro.build) + [Tailwind CSS v4](https://tailwindcss.com).
+No backend, no database — it builds to plain HTML/CSS/JS and deploys via
+GitHub Pages (see `.github/workflows/deploy.yml`).
+
+The rest of this README is for whoever is maintaining the site.
+
+### Project structure
 
 ```text
 website/
 ├── public/
-│   ├── favicon.svg        # brand mark favicon
-│   └── og-image.svg       # PLACEHOLDER social share image — replace before launch
+│   ├── favicon.png         # browser-tab icon
+│   └── og-image.png        # social share image (1200×630)
 ├── src/
-│   ├── site.config.ts     # ⭐ ALL editable content lives here
+│   ├── site.config.ts      # ⭐ ALL editable content lives here
+│   ├── assets/              # source photos/logos — imported via astro:assets
 │   ├── layouts/
 │   │   └── BaseLayout.astro   # <head>, SEO + Open Graph meta, fonts
 │   ├── components/
-│   │   ├── Nav.astro          # sticky nav, mobile menu
+│   │   ├── Nav.astro          # sticky nav, mobile menu, logo
 │   │   ├── Hero.astro
 │   │   ├── Vision.astro
-│   │   ├── WhatWeDo.astro     # 4 feature cards
+│   │   ├── WhatWeDo.astro     # capability cards ("what our robots do")
+│   │   ├── Benefits.astro     # slim "why it matters" strip
 │   │   ├── WhereWeStart.astro
 │   │   ├── Team.astro         # founder cards
 │   │   ├── CtaBand.astro      # closing CTA + contact anchor
+│   │   ├── Credibility.astro  # "based in Helsinki" strip
 │   │   ├── Footer.astro
 │   │   └── ScrollReveal.astro # IntersectionObserver fade/slide-in
 │   ├── icons/
@@ -39,7 +72,7 @@ website/
 └── package.json
 ```
 
-## Editing content
+### Editing content
 
 Open **`src/site.config.ts`**. Every piece of copy on the site — company
 name, tagline, nav links, hero text, section copy, founder bios, contact
@@ -47,56 +80,49 @@ method — is a value in that one file. Change it there and it updates
 everywhere the value is used; you never need to touch a component to edit
 copy.
 
-Search the file (and the codebase) for square brackets to find every
-placeholder that needs a real value before launch:
+Two placeholders are still unset:
 
 | Placeholder | Where | What to do |
 | --- | --- | --- |
 | `[CALENDLY_URL]` | `site.config.ts` → `contact.calendlyUrl` | Set your real Calendly link, then set `contact.method: "calendly"` to make every CTA button use it instead of email |
 | `[LINKEDIN_COMPANY_URL]` | `site.config.ts` → `contact.linkedin` | Company LinkedIn page, used in the footer |
-| `[YOUR_DOMAIN]` style URL | `site.config.ts` → `siteUrl` (currently `https://your-domain-here.com`) | Your real production domain — used for canonical + Open Graph URLs. **Must remain a valid URL** or the build fails |
-| `og-image.svg` | `public/og-image.svg` + `site.config.ts` → `ogImage` | Replace with a real 1200×630 `.jpg`/`.png` — most platforms render social preview images poorly (or not at all) as SVG |
 
-Founder names, roles, bios, photos, and the contact email (with CC) are
-already filled in with real values — no placeholders left there.
+Everything else — founder names, roles, bios, photos, contact email (with
+CC), site URL, OG image, logo — is already filled in with real values.
 
 ### Switching the "Book 20 minutes" link
 
 Every CTA button on the site (`Nav`, `Hero`, `CtaBand`, footer email link)
-resolves through one helper, `getCtaHref()`, driven by
-`site.config.ts` → `contact.method`:
+resolves through one helper, `getCtaHref()` (and `getMailtoHref()` for the
+footer's visible email link), driven by `site.config.ts` → `contact.method`:
 
 - `"mailto"` (default) → opens the visitor's email client with
-  `contact.email` and a prefilled subject (`contact.emailSubject`).
+  `contact.email`, CC'd to `contact.ccEmail`, and a prefilled subject
+  (`contact.emailSubject`).
 - `"calendly"` → links straight to `contact.calendlyUrl`.
 
 Change `method` once and every button on the site updates.
 
 ### Adding images
 
-Team headshots and any other future photos are intentionally left out for
-now (no placeholder boxes) rather than shipping empty dashed frames. The
-hero photo (`src/assets/hero-robot.jpg`) shows the pattern to follow when
-you're ready to add one:
+Founder headshots and the hero photo follow the same pattern — source files
+live in `src/assets/` (not `public/`) and are rendered with Astro's built-in
+`<Image>` component instead of a plain `<img>`:
 
-1. Drop the source file in `src/assets/` (not `public/`).
-2. Import it and render it with Astro's built-in `<Image>` component instead
-   of a plain `<img>`:
+```astro
+---
+import { Image } from "astro:assets";
+import myPhoto from "../assets/my-photo.jpg";
+---
 
-   ```astro
-   ---
-   import { Image } from "astro:assets";
-   import myPhoto from "../assets/my-photo.jpg";
-   ---
-
-   <Image src={myPhoto} alt="Descriptive alt text" width={800} />
-   ```
+<Image src={myPhoto} alt="Descriptive alt text" width={800} />
+```
 
 `astro:assets` automatically compresses the image, converts it to WebP, and
 generates the right size for each screen at build time — the hero photo's
 5.6 MB source ships as a ~110 KB WebP. A plain `<img src="/photo.jpg">`
 pointed at `public/` skips all of that and ships the original file size
-as-is, which is fine for tiny icons/favicons but not for photos.
+as-is, which is fine for tiny static files like the favicon but not photos.
 
 ## Local development
 
@@ -120,61 +146,18 @@ Other useful commands:
 
 ## Deploying
 
-The build output is a fully static `dist/` folder — any static host works.
+This repo deploys automatically: every push to `main` triggers
+`.github/workflows/deploy.yml`, which builds the Astro site and publishes it
+to GitHub Pages at [konevoai.github.io](https://konevoai.github.io). Watch
+progress in the **Actions** tab.
 
-### Netlify
+That requires the repo's **Settings → Pages → Build and deployment → Source**
+to be set to **"GitHub Actions"** (not "Deploy from a branch" — that setting
+runs GitHub's default Jekyll build instead, which fails on `.astro` files).
 
-1. Push this repo to GitHub/GitLab/Bitbucket.
-2. In Netlify: **Add new site → Import an existing project**, pick the repo.
-3. Build settings (Netlify usually auto-detects these from `astro`):
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-4. Deploy. Point your custom domain at the Netlify site once ready.
-
-Or via CLI, from inside `website/`:
-
-```sh
-npm install -g netlify-cli
-npm run build
-netlify deploy --prod --dir=dist
-```
-
-### Vercel
-
-1. Push this repo to GitHub/GitLab/Bitbucket.
-2. In Vercel: **Add New → Project**, import the repo, framework preset
-   "Astro" is auto-detected.
-3. Build command: `npm run build`, output directory: `dist` (Vercel fills
-   these in automatically for Astro).
-4. Deploy.
-
-Or via CLI, from inside `website/`:
-
-```sh
-npm install -g vercel
-vercel --prod
-```
-
-### GitHub Pages
-
-1. In `astro.config.mjs`, add your site URL and (if deploying to a project
-   page, not a custom domain) a `base` path:
-
-   ```js
-   export default defineConfig({
-     site: "https://<your-username>.github.io",
-     base: "/<repo-name>", // omit if using a custom domain or a user/org page
-     vite: { plugins: [tailwindcss()] },
-   });
-   ```
-
-2. Add a GitHub Actions workflow at `.github/workflows/deploy.yml` using
-   [`withastro/action`](https://github.com/withastro/action) (see the
-   [official Astro GitHub Pages guide](https://docs.astro.build/en/guides/deploy/github/)
-   for the current recommended snippet), or build locally and push `dist/`
-   to a `gh-pages` branch with a tool like `gh-pages`.
-3. In the repo's **Settings → Pages**, set the source to the deploying
-   branch/workflow.
+The build output is a plain static `dist/` folder, so if you ever want to
+deploy elsewhere too (Netlify, Vercel, etc.), point their build command at
+`npm run build` and publish directory at `dist`.
 
 ## Design system reference
 
